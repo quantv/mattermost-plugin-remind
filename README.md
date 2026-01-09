@@ -1,10 +1,10 @@
 # Mattermost Plugin Remind
 
- [![Build Status](https://img.shields.io/circleci/project/github/scottleedavis/mattermost-plugin-remind/master.svg)](https://circleci.com/gh/scottleedavis/mattermost-plugin-remind)
- [![codecov](https://codecov.io/gh/scottleedavis/mattermost-plugin-remind/branch/master/graph/badge.svg)](https://codecov.io/gh/scottleedavis/mattermost-plugin-remind)  
- [![Go Report Card](https://goreportcard.com/badge/github.com/scottleedavis/mattermost-plugin-remind)](https://goreportcard.com/report/github.com/scottleedavis/mattermost-plugin-remind)  
- [![CII Best Practices](https://bestpractices.coreinfrastructure.org/projects/3119/badge)](https://bestpractices.coreinfrastructure.org/projects/3119)  
- [![Releases](https://img.shields.io/github/release/scottleedavis/mattermost-plugin-remind.svg)](https://github.com/scottleedavis/mattermost-plugin-remind/releases/latest)
+Forked from scottleedavis/mattermost-plugin-remind
+
+Upgrade to mattermost plugin api v8
+
+Only tested with Mattermost 11
 
 _**A bot that schedules reminders for [Mattermost](https://mattermost.com/)**_
 
@@ -12,7 +12,7 @@ _**A bot that schedules reminders for [Mattermost](https://mattermost.com/)**_
 
 ### Installation
 
-_requires Mattermost v6.5.2 or greater._
+_requires Mattermost v11.0.0 or greater._
 
 1) Go to the [releases page](https://github.com/scottleedavis/mattermost-plugin-remind/releases) of this GitHub repository and download the latest release for your Mattermost server.
 2) Upload this file in the Mattermost System Console > Plugins > Management page to install the plugin. To learn more about how to upload a plugin, see the documentation.
