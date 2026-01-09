@@ -8,7 +8,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/mattermost/mattermost-server/v6/model"
+	"github.com/mattermost/mattermost/server/public/model"
 )
 
 func (p *Plugin) ParseRequest(request *ReminderRequest) error {
@@ -34,11 +34,11 @@ func (p *Plugin) ParseRequest(request *ReminderRequest) error {
 
 			message := request.Payload[firstIndex : lastIndex+1]
 
-			when := strings.Replace(request.Payload, message, "", -1)
+			when := strings.ReplaceAll(request.Payload, message, "")
 			when = strings.Replace(when, request.Reminder.Target, "", 1)
 			when = strings.Trim(when, " ")
 
-			message = strings.Replace(message, "\"", "", -1)
+			message = strings.ReplaceAll(message, "\"", "")
 
 			request.Reminder.When = when
 			request.Reminder.Message = message
@@ -54,7 +54,7 @@ func (p *Plugin) ParseRequest(request *ReminderRequest) error {
 			request.Reminder.When = request.Reminder.When[0:toIndex]
 		}
 
-		message := strings.Replace(request.Payload, request.Reminder.When, "", -1)
+		message := strings.ReplaceAll(request.Payload, request.Reminder.When, "")
 		message = strings.Replace(message, request.Reminder.Target, "", 1)
 		message = strings.Trim(message, " \"")
 
@@ -75,10 +75,10 @@ func (p *Plugin) ParseRequest(request *ReminderRequest) error {
 
 			message := request.Payload[firstIndex : lastIndex+1]
 
-			when := strings.Replace(request.Payload, message, "", -1)
+			when := strings.ReplaceAll(request.Payload, message, "")
 			when = strings.Trim(when, " ")
 
-			message = strings.Replace(message, "\"", "", -1)
+			message = strings.ReplaceAll(message, "\"", "")
 
 			request.Reminder.When = when
 			request.Reminder.Message = message
@@ -94,7 +94,7 @@ func (p *Plugin) ParseRequest(request *ReminderRequest) error {
 			request.Reminder.When = request.Reminder.When[0:toIndex]
 		}
 
-		message := strings.Replace(request.Payload, request.Reminder.When, "", -1)
+		message := strings.ReplaceAll(request.Payload, request.Reminder.When, "")
 		message = strings.Trim(message, " \"")
 
 		if message == "" {
@@ -395,7 +395,7 @@ func (p *Plugin) normalizeTime(text string, user *model.User) (string, error) {
 	t := text
 	if match, _ := regexp.MatchString("(1[012]|[1-9]):[0-5][0-9](\\s)?(?i)(am|pm)", t); match { // 12:30PM, 12:30 pm
 
-		t = strings.ToUpper(strings.Replace(t, " ", "", -1))
+		t = strings.ToUpper(strings.ReplaceAll(t, " ", ""))
 		test, tErr := time.Parse(time.Kitchen, t)
 		if tErr != nil {
 			return "", tErr
@@ -562,7 +562,7 @@ func (p *Plugin) normalizeDate(text string, user *model.User) (string, error) {
 		strings.Contains(date, T("dec")) ||
 		strings.Contains(date, T("december")) {
 
-		date = strings.Replace(date, ",", "", -1)
+		date = strings.ReplaceAll(date, ",", "")
 		parts := strings.Split(date, " ")
 
 		switch len(parts) {

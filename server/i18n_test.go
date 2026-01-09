@@ -7,7 +7,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/mattermost/mattermost-server/v6/plugin/plugintest"
+	"github.com/mattermost/mattermost/server/public/plugin/plugintest"
 	"github.com/stretchr/testify/mock"
 	"github.com/stretchr/testify/require"
 )
@@ -15,7 +15,9 @@ import (
 func TestTranslationsPreInit(t *testing.T) {
 	tmpDir := os.TempDir()
 	assetsPath := filepath.Join(tmpDir, "assets")
-	defer os.RemoveAll(assetsPath)
+	defer func() {
+		_ = os.RemoveAll(assetsPath)
+	}()
 	err := os.Mkdir(assetsPath, 0777)
 	require.NoError(t, err)
 
@@ -41,8 +43,11 @@ func TestTranslationsPreInit(t *testing.T) {
 
 		file, err := os.Create(i18nPath)
 		require.NoError(t, err)
-		file.Close()
-		defer os.Remove(file.Name())
+		_ = file.Close()
+
+		defer func() {
+			_ = os.Remove(file.Name())
+		}()
 
 		p := &Plugin{}
 		p.API = api
@@ -59,7 +64,9 @@ func TestTranslationsPreInit(t *testing.T) {
 
 		err := os.Mkdir(i18nPath, 0777)
 		require.NoError(t, err)
-		defer os.Remove(i18nPath)
+		defer func() {
+			_ = os.Remove(i18nPath)
+		}()
 
 		p := &Plugin{}
 		p.API = api

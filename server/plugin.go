@@ -5,9 +5,8 @@ import (
 	"time"
 
 	"github.com/gorilla/mux"
-	pluginapi "github.com/mattermost/mattermost-plugin-api"
-	"github.com/mattermost/mattermost-server/v6/model"
-	"github.com/mattermost/mattermost-server/v6/plugin"
+	"github.com/mattermost/mattermost/server/public/model"
+	"github.com/mattermost/mattermost/server/public/plugin"
 	"github.com/pkg/errors"
 )
 
@@ -18,7 +17,6 @@ const (
 
 type Plugin struct {
 	plugin.MattermostPlugin
-	client *pluginapi.Client
 
 	router    *mux.Router
 	botUserId string
@@ -39,17 +37,15 @@ func NewPlugin() *Plugin {
 }
 
 func (p *Plugin) OnActivate() error {
-	p.client = pluginapi.NewClient(p.API, p.Driver)
-
 	p.ServerConfig = p.API.GetConfig()
 	p.router = p.InitAPI()
 	p.emptyTime = time.Time{}.AddDate(1, 1, 1)
 
-	botID, err := p.client.Bot.EnsureBot(&model.Bot{
+	botID, err := p.API.EnsureBotUser(&model.Bot{
 		Username:    botUserName,
 		DisplayName: botDisplayName,
 		Description: "Created by the GitHub plugin.",
-	}, pluginapi.ProfileImagePath("assets/icon.png"))
+	})
 	if err != nil {
 		return errors.Wrap(err, "failed to ensure remind bot")
 	}

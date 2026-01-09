@@ -9,7 +9,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/mattermost/mattermost-server/v6/model"
+	"github.com/mattermost/mattermost/server/public/model"
 	"golang.org/x/text/cases"
 	"golang.org/x/text/language"
 )
@@ -1314,7 +1314,7 @@ func (p *Plugin) formatWhenEN(username string, when string, occurrence string, s
 	if strings.HasPrefix(when, T("every")) {
 
 		repeatDate := strings.Trim(strings.Split(when, T("at"))[0], " ")
-		repeatDate = strings.Replace(repeatDate, T("every"), "", -1)
+		repeatDate = strings.ReplaceAll(repeatDate, T("every"), "")
 		caser := cases.Title(language.English)
 		repeatDate = caser.String(strings.ToLower(repeatDate))
 		repeatDate = T("every") + repeatDate

@@ -3,8 +3,8 @@ package main
 import (
 	"strings"
 
-	"github.com/mattermost/mattermost-server/v6/model"
-	"github.com/mattermost/mattermost-server/v6/plugin"
+	"github.com/mattermost/mattermost/server/public/model"
+	"github.com/mattermost/mattermost/server/public/plugin"
 	"github.com/pkg/errors"
 )
 
@@ -87,7 +87,7 @@ func (p *Plugin) ExecuteCommand(c *plugin.Context, args *model.CommandArgs) (*mo
 		return &model.CommandResponse{}, nil
 	}
 
-	payload := strings.Trim(strings.Replace(command, "/"+CommandTrigger, "", -1), " ")
+	payload := strings.Trim(strings.ReplaceAll(command, "/"+CommandTrigger, ""), " ")
 	request := ReminderRequest{
 		TeamId:   args.TeamId,
 		Username: user.Username,

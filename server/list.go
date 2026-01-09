@@ -5,7 +5,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/mattermost/mattermost-server/v6/model"
+	"github.com/mattermost/mattermost/server/public/model"
 )
 
 const RemindersPerPage = 4
@@ -159,7 +159,7 @@ func (p *Plugin) categorizeOccurrences(reminders []Reminder) (
 				recurringOccurrences = append(recurringOccurrences, occurrence)
 			} else if !isCompleted &&
 				isPast &&
-				(s == p.emptyTime || s.Before(time.Now().UTC())) {
+				(s.Equal(p.emptyTime) || s.Before(time.Now().UTC())) {
 				pastOccurrences = append(pastOccurrences, occurrence)
 			} else if isChannelReminder &&
 				!isCompleted &&

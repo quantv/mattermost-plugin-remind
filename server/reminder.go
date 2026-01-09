@@ -7,7 +7,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/mattermost/mattermost-server/v6/model"
+	"github.com/mattermost/mattermost/server/public/model"
 )
 
 type Reminder struct {
@@ -297,7 +297,7 @@ func (p *Plugin) TriggerRemindersForTick(tickAt time.Time) {
 
 				channel, cErr := p.API.GetChannelByName(
 					reminder.TeamId,
-					strings.Replace(reminder.Target, "~", "", -1),
+					strings.ReplaceAll(reminder.Target, "~", ""),
 					false,
 				)
 

@@ -10,8 +10,8 @@ import (
 
 	"github.com/gorilla/mux"
 
-	"github.com/mattermost/mattermost-server/v6/model"
-	"github.com/mattermost/mattermost-server/v6/plugin"
+	"github.com/mattermost/mattermost/server/public/model"
+	"github.com/mattermost/mattermost/server/public/plugin"
 )
 
 func (p *Plugin) InitAPI() *mux.Router {
@@ -46,7 +46,9 @@ func (p *Plugin) ServeHTTP(c *plugin.Context, w http.ResponseWriter, r *http.Req
 func (p *Plugin) handleDialog(w http.ResponseWriter, req *http.Request) {
 
 	body, _ := io.ReadAll(req.Body)
-	defer req.Body.Close()
+	defer func() {
+		_ = req.Body.Close()
+	}()
 
 	var request *model.SubmitDialogRequest
 	_ = json.Unmarshal(body, &request)
@@ -183,7 +185,9 @@ func (p *Plugin) handleDialog(w http.ResponseWriter, req *http.Request) {
 func (p *Plugin) handleViewEphemeral(w http.ResponseWriter, r *http.Request) {
 
 	body, _ := io.ReadAll(r.Body)
-	defer r.Body.Close()
+	defer func() {
+		_ = r.Body.Close()
+	}()
 
 	var request *model.PostActionIntegrationRequest
 	_ = json.Unmarshal(body, &request)
@@ -203,7 +207,9 @@ func (p *Plugin) handleViewEphemeral(w http.ResponseWriter, r *http.Request) {
 func (p *Plugin) handleComplete(w http.ResponseWriter, r *http.Request) {
 
 	body, _ := io.ReadAll(r.Body)
-	defer r.Body.Close()
+	defer func() {
+		_ = r.Body.Close()
+	}()
 
 	var request *model.PostActionIntegrationRequest
 	_ = json.Unmarshal(body, &request)
@@ -294,7 +300,9 @@ func (p *Plugin) handleComplete(w http.ResponseWriter, r *http.Request) {
 func (p *Plugin) handleDelete(w http.ResponseWriter, r *http.Request) {
 
 	body, _ := io.ReadAll(r.Body)
-	defer r.Body.Close()
+	defer func() {
+		_ = r.Body.Close()
+	}()
 
 	var request *model.PostActionIntegrationRequest
 	_ = json.Unmarshal(body, &request)
@@ -339,7 +347,9 @@ func (p *Plugin) handleDelete(w http.ResponseWriter, r *http.Request) {
 func (p *Plugin) handleDeleteEphemeral(w http.ResponseWriter, r *http.Request) {
 
 	body, _ := io.ReadAll(r.Body)
-	defer r.Body.Close()
+	defer func() {
+		_ = r.Body.Close()
+	}()
 
 	var request *model.PostActionIntegrationRequest
 	_ = json.Unmarshal(body, &request)
@@ -379,7 +389,9 @@ func (p *Plugin) handleDeleteEphemeral(w http.ResponseWriter, r *http.Request) {
 func (p *Plugin) handleSnooze(w http.ResponseWriter, r *http.Request) {
 
 	body, _ := io.ReadAll(r.Body)
-	defer r.Body.Close()
+	defer func() {
+		_ = r.Body.Close()
+	}()
 
 	var request *model.PostActionIntegrationRequest
 	_ = json.Unmarshal(body, &request)
@@ -518,7 +530,9 @@ func (p *Plugin) handleSnooze(w http.ResponseWriter, r *http.Request) {
 
 func (p *Plugin) handleNextReminders(w http.ResponseWriter, r *http.Request) {
 	body, _ := io.ReadAll(r.Body)
-	defer r.Body.Close()
+	defer func() {
+		_ = r.Body.Close()
+	}()
 
 	var request *model.PostActionIntegrationRequest
 	_ = json.Unmarshal(body, &request)
@@ -528,7 +542,9 @@ func (p *Plugin) handleNextReminders(w http.ResponseWriter, r *http.Request) {
 
 func (p *Plugin) handleCompleteList(w http.ResponseWriter, r *http.Request) {
 	body, _ := io.ReadAll(r.Body)
-	defer r.Body.Close()
+	defer func() {
+		_ = r.Body.Close()
+	}()
 
 	var request *model.PostActionIntegrationRequest
 	_ = json.Unmarshal(body, &request)
@@ -549,7 +565,9 @@ func (p *Plugin) handleCompleteList(w http.ResponseWriter, r *http.Request) {
 
 func (p *Plugin) handleViewCompleteList(w http.ResponseWriter, r *http.Request) {
 	body, _ := io.ReadAll(r.Body)
-	defer r.Body.Close()
+	defer func() {
+		_ = r.Body.Close()
+	}()
 
 	var request *model.PostActionIntegrationRequest
 	_ = json.Unmarshal(body, &request)
@@ -559,7 +577,9 @@ func (p *Plugin) handleViewCompleteList(w http.ResponseWriter, r *http.Request) 
 
 func (p *Plugin) handleDeleteList(w http.ResponseWriter, r *http.Request) {
 	body, _ := io.ReadAll(r.Body)
-	defer r.Body.Close()
+	defer func() {
+		_ = r.Body.Close()
+	}()
 
 	var request *model.PostActionIntegrationRequest
 	_ = json.Unmarshal(body, &request)
@@ -579,7 +599,9 @@ func (p *Plugin) handleDeleteList(w http.ResponseWriter, r *http.Request) {
 
 func (p *Plugin) handleDeleteCompleteList(w http.ResponseWriter, r *http.Request) {
 	body, _ := io.ReadAll(r.Body)
-	defer r.Body.Close()
+	defer func() {
+		_ = r.Body.Close()
+	}()
 
 	var request *model.PostActionIntegrationRequest
 	_ = json.Unmarshal(body, &request)
@@ -590,7 +612,9 @@ func (p *Plugin) handleDeleteCompleteList(w http.ResponseWriter, r *http.Request
 
 func (p *Plugin) handleSnoozeList(w http.ResponseWriter, r *http.Request) {
 	body, _ := io.ReadAll(r.Body)
-	defer r.Body.Close()
+	defer func() {
+		_ = r.Body.Close()
+	}()
 
 	var request *model.PostActionIntegrationRequest
 	_ = json.Unmarshal(body, &request)
@@ -703,7 +727,9 @@ func (p *Plugin) handleSnoozeList(w http.ResponseWriter, r *http.Request) {
 
 func (p *Plugin) handleCloseList(w http.ResponseWriter, r *http.Request) {
 	body, _ := io.ReadAll(r.Body)
-	defer r.Body.Close()
+	defer func() {
+		_ = r.Body.Close()
+	}()
 
 	var request *model.PostActionIntegrationRequest
 	_ = json.Unmarshal(body, &request)
